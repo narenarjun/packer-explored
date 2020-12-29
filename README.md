@@ -69,3 +69,35 @@ in template code :
   ]
 }
 ```
+
+## Debugging 
+
+[Breakpoint Provisioner](https://www.packer.io/docs/provisioners/breakpoint#breakpoint-provisioner) is a special and useful provisoner which will 
+pause until "enter" key is pressed to resume the build
+can be used to halt at a particular part of the provisioning process ,it is intented for debugging purpose and it is independent of `-debug` flag {which will instead halt at every step and between every provisioner}.
+
+```json
+{
+  "builders": [
+    {
+      "type": "null",
+      "communicator": "none"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell-local",
+      "inline": "echo hola"
+    },
+    {
+      "type": "breakpoint",
+      "disable": false,
+      "note": "this is a breakpoint"
+    },
+    {
+      "type": "shell-local",
+      "inline": "echo bonjour"
+    }
+  ]
+}
+```
